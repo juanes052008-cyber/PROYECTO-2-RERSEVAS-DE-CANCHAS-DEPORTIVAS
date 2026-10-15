@@ -1,0 +1,252 @@
+[
+  {
+    "id": "T01",
+    "categoria": "Registro válido",
+    "operacion": "O3",
+    "inicial": "Sin clientes.",
+    "entrada": "documento 1001234567, nombre \"Ana Pérez\", teléfono 3001234567",
+    "esperado": "Retorna Cliente CL001; clientes pasa de 0 a 1; JSON actualizado",
+    "obtenido": "Cliente CL001 creado; clientes 0 -> 1; JSON contiene al cliente",
+    "estado": "OK"
+  },
+  {
+    "id": "T02",
+    "categoria": "Duplicado",
+    "operacion": "O3",
+    "inicial": "CL001 ya existe.",
+    "entrada": "Mismo documento con nombre \"Otra Persona\"",
+    "esperado": "DuplicadoError; clientes sigue en 1; CL001 sin cambios",
+    "obtenido": "DuplicadoError ('Ya existe un cliente con el documento 1001234567.'); clientes = 1; CL001 sigue llamándose Ana Pérez",
+    "estado": "OK"
+  },
+  {
+    "id": "T03",
+    "categoria": "Registro válido",
+    "operacion": "O1",
+    "inicial": "Sin canchas.",
+    "entrada": "\"Cancha Fútbol 1\", FUTBOL, 80000",
+    "esperado": "Retorna Cancha C01; canchas pasa de 0 a 1",
+    "obtenido": "Cancha C01 creada; canchas 0 -> 1",
+    "estado": "OK"
+  },
+  {
+    "id": "T04",
+    "categoria": "Dato inválido",
+    "operacion": "O1",
+    "inicial": "Sin canchas.",
+    "entrada": "Intentos: tipo \"TENIS\"; tarifa -5; tarifa \"abc\"; nombre \" \"",
+    "esperado": "Cada intento lanza ValueError con su mensaje; no se crea ninguna cancha",
+    "obtenido": "4 ValueError (El tipo debe ser FUTBOL o VOLEY_PLAYA. / La tarifa debe ser un número mayor que cero. / La tarifa debe ser un número mayor que cero. / El nombre no puede estar vacío.); canchas = 0",
+    "estado": "OK"
+  },
+  {
+    "id": "T05",
+    "categoria": "Dato inválido",
+    "operacion": "O3",
+    "inicial": "Sin clientes.",
+    "entrada": "Intentos: documento \"12ab\"; documento \"123\"; teléfono \"300\"; nombre vacío",
+    "esperado": "ValueError en cada caso; no se crea el cliente",
+    "obtenido": "4 ValueError; clientes = 0",
+    "estado": "OK"
+  },
+  {
+    "id": "T06",
+    "categoria": "Búsqueda inexistente",
+    "operacion": "O4",
+    "inicial": "Clientes CL001 y CL002.",
+    "entrada": "documento 999999999",
+    "esperado": "Retorna None; mensaje \"No existe un cliente con el documento 999999999\"; sin cambios",
+    "obtenido": "Retorna None (la interfaz muestra: No existe un cliente con el documento 999999999); clientes = 2",
+    "estado": "OK"
+  },
+  {
+    "id": "T07",
+    "categoria": "Búsqueda inexistente",
+    "operacion": "O11",
+    "inicial": "Sin reservas.",
+    "entrada": "id \"R9999\"",
+    "esperado": "Retorna None; mensaje de reserva no encontrada; sin cambios",
+    "obtenido": "Retorna None; reservas = 0",
+    "estado": "OK"
+  },
+  {
+    "id": "T08",
+    "categoria": "Listas vacías",
+    "operacion": "O2, O5, O12",
+    "inicial": "Sistema sin canchas, clientes ni reservas.",
+    "entrada": "listar canchas, listar clientes, listar reservas",
+    "esperado": "Cada una retorna lista vacía sin error",
+    "obtenido": "Tres listas vacías; con canchas, el filtro FUTBOL retorna solo [C01]",
+    "estado": "OK"
+  },
+  {
+    "id": "T09",
+    "categoria": "Disponibilidad",
+    "operacion": "O8",
+    "inicial": "2 canchas, sin reservas.",
+    "entrada": "fecha 2026-10-15, sin tipo",
+    "esperado": "12 combinaciones libres (2 canchas × 6 franjas)",
+    "obtenido": "12 libres en total; 6 libres con filtro FUTBOL",
+    "estado": "OK"
+  },
+  {
+    "id": "T10",
+    "categoria": "Reserva válida",
+    "operacion": "O9",
+    "inicial": "C01, CL001, sin reservas.",
+    "entrada": "CL001, C01, 2026-10-15, F3",
+    "esperado": "Reserva R0001 ACTIVA con costo 80000; reservas pasa de 0 a 1",
+    "obtenido": "R0001 | Ana Pérez | Cancha Fútbol 1 | 2026-10-15 | 18:00-19:00 | ACTIVA | $80.000",
+    "estado": "OK"
+  },
+  {
+    "id": "T11",
+    "categoria": "Conflicto",
+    "operacion": "O9",
+    "inicial": "R0001 ACTIVA (C01, 2026-10-15, F3).",
+    "entrada": "CL002, C01, 2026-10-15, F3",
+    "esperado": "ConflictoDisponibilidadError; reservas sigue en 1",
+    "obtenido": "ConflictoDisponibilidadError ('La cancha ya está reservada en esa fecha y franja.'); reservas = 1",
+    "estado": "OK"
+  },
+  {
+    "id": "T12",
+    "categoria": "Referencia inexistente",
+    "operacion": "O9",
+    "inicial": "C01, CL001.",
+    "entrada": "cliente CL099; cancha C99; franja F9",
+    "esperado": "NoEncontradoError en cada caso; sin reservas nuevas",
+    "obtenido": "3 NoEncontradoError; reservas = 0",
+    "estado": "OK"
+  },
+  {
+    "id": "T13",
+    "categoria": "Fecha fuera de rango",
+    "operacion": "O9",
+    "inicial": "Hoy = 2026-10-14.",
+    "entrada": "fechas 2026-10-13 (ayer) y 2026-11-14 (hoy+31)",
+    "esperado": "ValueError en ambas; sin reservas",
+    "obtenido": "2 ValueError; reservas = 0",
+    "estado": "OK"
+  },
+  {
+    "id": "T14",
+    "categoria": "Límites de fecha",
+    "operacion": "O9",
+    "inicial": "Hoy = 2026-10-14.",
+    "entrada": "fecha de hoy (2026-10-14) y hoy+30 (2026-11-13)",
+    "esperado": "Ambas se aceptan",
+    "obtenido": "2 reservas creadas (límites incluidos)",
+    "estado": "OK"
+  },
+  {
+    "id": "T15",
+    "categoria": "Cancelación",
+    "operacion": "O10",
+    "inicial": "R0001 ACTIVA.",
+    "entrada": "cancelar R0001",
+    "esperado": "Estado CANCELADA; la reserva sigue en la colección",
+    "obtenido": "R0001 pasa a CANCELADA y se conserva (reservas = 1)",
+    "estado": "OK"
+  },
+  {
+    "id": "T16",
+    "categoria": "Reutilizar franja",
+    "operacion": "O10, O9",
+    "inicial": "R0001 CANCELADA (C01, 2026-10-15, F3).",
+    "entrada": "CL002 reserva C01, 2026-10-15, F3",
+    "esperado": "Se acepta: R0002 ACTIVA; las canceladas no ocupan",
+    "obtenido": "R0002 creada ACTIVA; R0001 sigue CANCELADA",
+    "estado": "OK"
+  },
+  {
+    "id": "T17",
+    "categoria": "Cancelar dos veces",
+    "operacion": "O10",
+    "inicial": "R0001 CANCELADA.",
+    "entrada": "cancelar R0001 otra vez",
+    "esperado": "OperacionNoPermitidaError; estado sin cambios",
+    "obtenido": "OperacionNoPermitidaError; R0001 sigue CANCELADA",
+    "estado": "OK"
+  },
+  {
+    "id": "T18",
+    "categoria": "Cancelar inexistente",
+    "operacion": "O10",
+    "inicial": "Sin reservas.",
+    "entrada": "cancelar \"R9999\"",
+    "esperado": "NoEncontradoError; sin cambios",
+    "obtenido": "NoEncontradoError",
+    "estado": "OK"
+  },
+  {
+    "id": "T19",
+    "categoria": "Eliminar válido",
+    "operacion": "O7",
+    "inicial": "CL002 sin reservas.",
+    "entrada": "eliminar documento 1098765432",
+    "esperado": "Cliente removido; clientes pasa de 2 a 1",
+    "obtenido": "CL002 eliminado; clientes 2 -> 1",
+    "estado": "OK"
+  },
+  {
+    "id": "T20",
+    "categoria": "Eliminar con reservas",
+    "operacion": "O7",
+    "inicial": "CL001 con una reserva CANCELADA y CL002 con una ACTIVA.",
+    "entrada": "eliminar ambos clientes",
+    "esperado": "OperacionNoPermitidaError en ambos; clientes sigue en 2",
+    "obtenido": "2 OperacionNoPermitidaError (activa y cancelada); inexistente -> NoEncontradoError; clientes = 2",
+    "estado": "OK"
+  },
+  {
+    "id": "T21",
+    "categoria": "Actualización atómica",
+    "operacion": "O6",
+    "inicial": "CL001: Ana Pérez, 3001234567.",
+    "entrada": "nombre \"Ana María\" con teléfono \"12\" (inválido); luego nombre \"Ana María\" con teléfono 3112223344",
+    "esperado": "El primer intento lanza ValueError y NO cambia el nombre; el segundo actualiza ambos",
+    "obtenido": "Intento inválido sin cambios; intento válido actualiza; inexistente y sin datos rechazados",
+    "estado": "OK"
+  },
+  {
+    "id": "T22",
+    "categoria": "Disponibilidad inválida",
+    "operacion": "O8",
+    "inicial": "Hoy = 2026-10-14.",
+    "entrada": "fecha 2026-12-31 (fuera de rango); disponibilidad tras crear R0001 (C01, F3)",
+    "esperado": "ValueError por fecha; con R0001 activa quedan 11 de 12 libres",
+    "obtenido": "ValueError; 11 libres con reserva activa; 12 al cancelarla",
+    "estado": "OK"
+  },
+  {
+    "id": "T23",
+    "categoria": "Filtros de reservas",
+    "operacion": "O12",
+    "inicial": "R0001 (CL001, 15-oct), R0002 (CL002, 15-oct), R0003 (CL001, 16-oct).",
+    "entrada": "listar por cliente CL001; por fecha 2026-10-15; por cliente sin reservas",
+    "esperado": "2 / 2 / lista vacía; orden por fecha y franja",
+    "obtenido": "2 / 2 / []; la fecha 15-oct sale ordenada [R0002 (F1), R0001 (F3)]",
+    "estado": "OK"
+  },
+  {
+    "id": "T24",
+    "categoria": "Guardar y cargar",
+    "operacion": "O13, O14",
+    "inicial": "Sistema con 2 canchas, 2 clientes y 2 reservas (una cancelada).",
+    "entrada": "guardar en JSON; cargar en un sistema nuevo; crear una reserva más",
+    "esperado": "Mismos datos; relaciones restauradas; costo congelado; nuevo id R0003 (contadores recalculados)",
+    "obtenido": "Datos idénticos tras cargar; R0003 nuevo; C03 nuevo; costo de R0001 sigue en 80000 tras subir la tarifa a 99000",
+    "estado": "OK"
+  },
+  {
+    "id": "T25",
+    "categoria": "Archivo con problemas",
+    "operacion": "O13",
+    "inicial": "datos_con_errores.json (reserva con cancha C99 y reserva activa duplicada); datos_corrupto.json; archivo inexistente.",
+    "entrada": "cargar cada archivo",
+    "esperado": "Omite y avisa los registros malos; el corrupto da sistema vacío con aviso y no se sobrescribe; sin archivo, 2 canchas de ejemplo",
+    "obtenido": "Con errores: 2 avisos, 7 reservas válidas cargadas; corrupto: sistema vacío con 1 aviso y archivo intacto; sin archivo: 2 canchas de ejemplo",
+    "estado": "OK"
+  }
+]

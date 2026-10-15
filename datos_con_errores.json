@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "canchas": [
+    {
+      "id": "C01",
+      "nombre": "Cancha Futbol 1",
+      "tipo": "FUTBOL",
+      "tarifa": 80000
+    },
+    {
+      "id": "C02",
+      "nombre": "Voley Playa 1",
+      "tipo": "VOLEY_PLAYA",
+      "tarifa": 50000
+    },
+    {
+      "id": "C03",
+      "nombre": "Cancha Futbol 2",
+      "tipo": "FUTBOL",
+      "tarifa": 90000
+    },
+    {
+      "id": "C04",
+      "nombre": "Voley Playa 2",
+      "tipo": "VOLEY_PLAYA",
+      "tarifa": 55000
+    },
+    {
+      "id": "C05",
+      "nombre": "Cancha Futbol 3",
+      "tipo": "FUTBOL",
+      "tarifa": 85000
+    }
+  ],
+  "clientes": [
+    {
+      "id": "CL001",
+      "documento": "1001234567",
+      "nombre": "Ana Perez",
+      "telefono": "3001234567"
+    },
+    {
+      "id": "CL002",
+      "documento": "1098765432",
+      "nombre": "Luis Mora",
+      "telefono": "3109876543"
+    },
+    {
+      "id": "CL003",
+      "documento": "31234567",
+      "nombre": "Marta Gomez",
+      "telefono": "3157654321"
+    },
+    {
+      "id": "CL004",
+      "documento": "1144556677",
+      "nombre": "Carlos Ruiz",
+      "telefono": "3201122334"
+    },
+    {
+      "id": "CL005",
+      "documento": "94123456",
+      "nombre": "Sofia Lopez",
+      "telefono": "3012345678"
+    },
+    {
+      "id": "CL006",
+      "documento": "1112223334",
+      "nombre": "Pedro Vargas",
+      "telefono": "3223334455"
+    }
+  ],
+  "reservas": [
+    {
+      "id": "R0001",
+      "id_cancha": "C01",
+      "id_cliente": "CL001",
+      "fecha": "2026-10-15",
+      "id_franja": "F3",
+      "estado": "ACTIVA",
+      "costo": 80000
+    },
+    {
+      "id": "R0002",
+      "id_cancha": "C02",
+      "id_cliente": "CL002",
+      "fecha": "2026-10-15",
+      "id_franja": "F3",
+      "estado": "ACTIVA",
+      "costo": 50000
+    },
+    {
+      "id": "R0003",
+      "id_cancha": "C01",
+      "id_cliente": "CL001",
+      "fecha": "2026-10-16",
+      "id_franja": "F1",
+      "estado": "CANCELADA",
+      "costo": 80000
+    },
+    {
+      "id": "R0004",
+      "id_cancha": "C03",
+      "id_cliente": "CL003",
+      "fecha": "2026-10-16",
+      "id_franja": "F4",
+      "estado": "ACTIVA",
+      "costo": 90000
+    },
+    {
+      "id": "R0005",
+      "id_cancha": "C04",
+      "id_cliente": "CL004",
+      "fecha": "2026-10-17",
+      "id_franja": "F2",
+      "estado": "ACTIVA",
+      "costo": 55000
+    },
+    {
+      "id": "R0006",
+      "id_cancha": "C01",
+      "id_cliente": "CL005",
+      "fecha": "2026-10-16",
+      "id_franja": "F1",
+      "estado": "ACTIVA",
+      "costo": 80000
+    },
+    {
+      "id": "R0007",
+      "id_cancha": "C05",
+      "id_cliente": "CL002",
+      "fecha": "2026-10-20",
+      "id_franja": "F6",
+      "estado": "ACTIVA",
+      "costo": 85000
+    },
+    {
+      "id": "R0008",
+      "id_cancha": "C99",
+      "id_cliente": "CL001",
+      "fecha": "2026-10-18",
+      "id_franja": "F1",
+      "estado": "ACTIVA",
+      "costo": 1
+    },
+    {
+      "id": "R0009",
+      "id_cancha": "C01",
+      "id_cliente": "CL003",
+      "fecha": "2026-10-15",
+      "id_franja": "F3",
+      "estado": "ACTIVA",
+      "costo": 80000
+    }
+  ]
+}
