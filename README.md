@@ -1,8 +1,12 @@
-# Proyecto 2: Reservas de canchas deportivas
+ Proyecto 2: Reservas de canchas deportivas
 
-Universidad Autónoma de Occidente. Aplicación de escritorio (Tkinter) y de consola para gestionar canchas, clientes y reservas, con persistencia en JSON.
+JUAN ESTEBAN SALDARRIAGA RAMIREZ 
+JUAN JACOBO RODRÍGUEZ  
+SAMUEL VALENCIA SANDOVAL 
+SAMUEL DOMINGUEZ ARIZA
 
-**Repositorio GitHub:** _(pegar aquí el enlace del repositorio del grupo antes de entregar)_
+https://github.com/juanes052008-cyber/PROYECTO-2-RERSEVAS-DE-CANCHAS-DEPORTIVAS
+
 
 ## Requisitos
 
